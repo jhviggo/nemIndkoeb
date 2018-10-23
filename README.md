@@ -1,4 +1,4 @@
-# nem_ind_koeb
+# nem_indkoeb
 
 ## Project setup
 ```
