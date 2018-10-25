@@ -1,6 +1,8 @@
 <template>
     <ul class="list-group col-auto">
-        <li v-for="(info, store ) in storePrices" :key="store" class="list-group-item">{{store}} {{info.price}}</li>
+        <li v-for="(info, store ) in storePrices" :key="store" class="list-group-item">
+            <p v.if="info">{{store}} {{info.price}}</p>
+        </li>
     </ul>
 </template>
 
