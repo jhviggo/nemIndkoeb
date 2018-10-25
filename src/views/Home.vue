@@ -2,10 +2,10 @@
   <div class="home">
     <div class="row col-12">
       <SearchBar v-model="productSuggestions" :scan="scan"></SearchBar>
-      <ProductList :products="productSuggestions" v-model="selectedProduct"></ProductList>
+      <ProductList :products="productSuggestions" v-model="selectedProduct" :selectProduct="selectProduct"></ProductList>
     </div>
     <div class="row col-12">
-      <PriceList :="selectedProduct" :ean="ean"></PriceList>
+      <PriceList :product="selectedProduct" :ean="ean"></PriceList>
     </div>
   </div>
 </template>
@@ -35,6 +35,10 @@ export default {
       scan (ean) {
         console.log("ean: " + ean)
         this.ean = ean
+    },
+    selectProduct(product) {
+        console.log(product)
+        this.selectedProduct = product;
     }
   }
 }
