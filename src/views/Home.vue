@@ -1,6 +1,7 @@
 <template>
   <div class="">
     <div id="item"></div>
+    <p id="EAN-id">Leder efter EAN...</p>
   </div>
 </template>
 
@@ -65,6 +66,7 @@ export default {
     Quagga.onDetected(result => {
         if (result.codeResult){
           document.getElementById('dd').innerHTML = result.codeResult.code;
+          document.getElementById('EAN-id').innerText = result.codeResult.code;
         }
     });
   },
