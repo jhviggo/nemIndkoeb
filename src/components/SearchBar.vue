@@ -20,6 +20,9 @@ import EANScanner from './EANScanner'
 
 export default {
   name: 'SearchBar',
+  props: {
+    scan: Function
+  },
   components: {
     EANScanner
   },
@@ -34,7 +37,7 @@ export default {
         .catch(err => console.log(err))
     },
     ean () {
-      console.log(this.ean)
+      this.scan(this.ean)
     }
   },
   data () {

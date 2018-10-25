@@ -29,6 +29,7 @@ export default {
   },
   methods: {
       scan (ean) {
+        console.log("ean: " + ean)
         this.ean = ean
     }
   }
