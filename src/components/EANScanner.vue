@@ -1,5 +1,5 @@
 <template>
-    <div class="mx-auto">
+    <div class="position-relative">
         <div id="item"></div>
         <p id="EAN">Leder efter EAN...</p>
     </div>
@@ -72,11 +72,3 @@ export default {
     }
 }
 </script>
-
-<style>
-canvas {
-    position: absolute;
-    top:  0;
-    left: 0;
-}
-</style>
