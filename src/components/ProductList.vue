@@ -1,6 +1,6 @@
 <template>
     <ul class="list-group col-auto">
-        <li v-on:click="selectProduct(product)" v-for="product in products" :key="product.id" class="list-group-item">{{product.title}}</li>
+        <li v-on:click="$emit('input', product)" v-for="product in products" :key="product.id" class="list-group-item">{{product.title}}</li>
     </ul>
 </template>
 

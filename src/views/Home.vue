@@ -1,7 +1,8 @@
 <template>
   <div class="home">
-    <SearchBar v-model="productSuggestions"></SearchBar>
-    <ProductList :products="productSuggestions" ></ProductList>
+    <SearchBar v-model="productSuggestions" :scan="scan"></SearchBar>
+    <ProductList :products="productSuggestions" v-model="selectedProduct"></ProductList>
+    <PriceList :="selectedProduct" :ean="ean"></PriceList>
   </div>
 </template>
 
@@ -10,17 +11,26 @@
 import EANScanner from '../components/EANScanner'
 import SearchBar from '../components/SearchBar'
 import ProductList from '../components/ProductList'
+import PriceList from '../components/PriceList'
 
 export default {
     components: {
+      PriceList,
       ProductList,
       SearchBar,
         EANScanner
     },
   data() {
       return {
-        productSuggestions: []
+        productSuggestions: [],
+        selectedProduct: null,
+        ean: ''
       }
+  },
+  methods: {
+      scan (ean) {
+        this.ean = ean
+    }
   }
 }
 </script>
