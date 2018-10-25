@@ -21,10 +21,18 @@ export default {
                     name : "Live",
                     type : "LiveStream",
                     target: document.querySelector('#item'),
+                    patchSize: "x-large",
+                    frequency: 10,
                     constraints: {
                         width: 320,
                         height: 320
-                    }
+                    },
+                    area: {
+                        top: '0%',
+                        bottom: '0%',
+                        left: '0%',
+                        right: '0%',
+                    },
                 },
                 decoder : {
                     readers : ["ean_reader"]
