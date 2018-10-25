@@ -1,11 +1,11 @@
 <template>
   <div class="home">
-    <div class="row col-12">
+    <div class="col-12" v-if="!selectedProduct && !ean">
       <SearchBar v-model="productSuggestions" :scan="scan"></SearchBar>
       <ProductList :products="productSuggestions" v-model="selectedProduct" :selectProduct="selectProduct"></ProductList>
     </div>
-    <div class="row col-12">
-      <PriceList :product="selectedProduct" :ean="ean"></PriceList>
+    <div class="col-12 align-content-center">
+      <PriceList v-on:back="clearPrices()" :product="selectedProduct" :ean="ean"></PriceList>
     </div>
   </div>
 </template>
@@ -28,17 +28,21 @@ export default {
       return {
         productSuggestions: [],
         selectedProduct: null,
-        ean: ''
+        ean: null
       }
   },
   methods: {
       scan (ean) {
-        console.log("ean: " + ean)
         this.ean = ean
     },
     selectProduct(product) {
-        console.log(product)
         this.selectedProduct = product;
+    },
+    clearPrices() {
+        this.scan(null)
+      this.selectProduct(null)
+      this.productSuggestions = [];
+
     }
   }
 }

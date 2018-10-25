@@ -1,11 +1,11 @@
 <template>
     <div class="container">
-        <div class="row align-items-center">
-            <div class="col">
+        <div class="row justify-content-center" style="margin-top: 10px;">
+            <div class="col-8">
                 <input v-model="query" type="search" placeholder="Search" aria-label="Search" class="form-control">
             </div>
             <div class="col-auto">
-                <button v-on:click="toggleModal()" class="btn" type="submit">BarCode</button>
+                <button v-on:click="toggleModal()" class="btn" >BarCode</button>
             </div>
             <div id="modal" class="mx-auto pt-4">
                 <e-a-n-scanner v-model="ean"/>
@@ -28,7 +28,11 @@ export default {
   },
   watch: {
     query () {
-      console.log(this.query)
+      if (this.query === '') {
+        return
+      } else if (this.modalStatus()) {
+        this.toggleModal()
+      }
       const url = `https://api.sallinggroup.com/v1/product-suggestions/query/${this.query}`
       axios.get(url, { headers: { Authorization: `Bearer 5d6b4a05-177f-4ca2-80e9-576b47759a85` } })
         .then(response => {
@@ -49,6 +53,12 @@ export default {
   methods: {
     toggleModal () {
       document.getElementById('modal').classList.toggle('d-block')
+      if (this.modalStatus()) {
+        this.query = ''
+      }
+    },
+    modalStatus () {
+      return document.getElementById('modal').classList.contains('d-block')
     }
   }
 }
