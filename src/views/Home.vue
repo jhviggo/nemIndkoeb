@@ -1,8 +1,12 @@
 <template>
   <div class="home">
-    <SearchBar v-model="productSuggestions" :scan="scan"></SearchBar>
-    <ProductList :products="productSuggestions" v-model="selectedProduct"></ProductList>
-    <PriceList :="selectedProduct" :ean="ean"></PriceList>
+    <div class="row col-12">
+      <SearchBar v-model="productSuggestions" :scan="scan"></SearchBar>
+      <ProductList :products="productSuggestions" v-model="selectedProduct"></ProductList>
+    </div>
+    <div class="row col-12">
+      <PriceList :="selectedProduct" :ean="ean"></PriceList>
+    </div>
   </div>
 </template>
 
