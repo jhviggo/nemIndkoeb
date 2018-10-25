@@ -1,6 +1,8 @@
 <template>
-  <div class="">
-    <div id="item"></div>
+  <div class="home">
+    <div class="modal mx-auto">
+      <div id="item"></div>
+    </div>
     <p id="EAN">Leder efter EAN...</p>
   </div>
 </template>
@@ -20,7 +22,11 @@ export default {
       inputStream : {
         name : "Live",
         type : "LiveStream",
-        target: document.querySelector('#item')
+        target: document.querySelector('#item'),
+        constraints: {
+            width: 320,
+            height: 320
+        }
       },
       decoder : {
           readers : ["ean_reader"]
@@ -88,10 +94,12 @@ export default {
 </script>
 
 <style>
-.home {
-  width: 100px;
-  height: 100px;
-  background-color: lightgray;
+.modal {
+  display: none;
+  position: absolute;
+  z-index: 15;
+  max-width: 320px;
+  max-height: 400px;
 }
 
 canvas {
