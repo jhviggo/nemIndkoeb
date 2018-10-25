@@ -66,27 +66,9 @@ export default {
         Quagga.onDetected(result => {
             if (result.codeResult){
                 document.getElementById('EAN').innerText = result.codeResult.code;
+                this.$emit('input', result.codeResult.code);
             }
         });
-    },
-    methods: {
-        scanImage(image) {
-            Quagga.decodeSingle({
-                decoder: {
-                    readers: ["ean_reader"]
-                },
-                locate: true,
-                src: image
-            }, function(result){
-                console.log(result);
-                if(result.codeResult) {
-                    console.log("result", result.codeResult.code);
-                    // document.getElementById('dd').innerHTML = result.codeResult.code;
-                } else {
-                    console.log("not detected");
-                }
-            });
-        }
     }
 }
 </script>

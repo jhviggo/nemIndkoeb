@@ -1,31 +1,31 @@
 <template>
   <div class="home">
-    <div id="modal" class="mx-auto">
-      <e-a-n-scanner/>
-    </div>
+    <SearchBar v-model="productSuggestions"></SearchBar>
+    <ProductList :products="productSuggestions" ></ProductList>
   </div>
 </template>
 
 <script>
 /* eslint-disable */
 import EANScanner from '../components/EANScanner'
+import SearchBar from '../components/SearchBar'
+import ProductList from '../components/ProductList'
 
 export default {
     components: {
+      ProductList,
+      SearchBar,
         EANScanner
-    }
+    },
+  data() {
+      return {
+        productSuggestions: []
+      }
+  }
 }
 </script>
 
 <style>
-#modal {
-  display: none;
-  position: absolute;
-  z-index: 15;
-  max-width: 320px;
-  max-height: 400px;
-}
-
 canvas {
   position: absolute;
   top:  0;
