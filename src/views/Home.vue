@@ -1,7 +1,7 @@
 <template>
   <div class="">
     <div id="item"></div>
-    <p id="EAN-id">Leder efter EAN...</p>
+    <p id="EAN">Leder efter EAN...</p>
   </div>
 </template>
 
@@ -20,11 +20,7 @@ export default {
       inputStream : {
         name : "Live",
         type : "LiveStream",
-        target: document.querySelector('#item'),
-        constraints: {
-            width: 640,
-            height: 480
-        }
+        target: document.querySelector('#item')
       },
       decoder : {
           readers : ["ean_reader"]
@@ -65,8 +61,7 @@ export default {
 
     Quagga.onDetected(result => {
         if (result.codeResult){
-          document.getElementById('dd').innerHTML = result.codeResult.code;
-          document.getElementById('EAN-id').innerText = result.codeResult.code;
+          document.getElementById('EAN').innerText = result.codeResult.code;
         }
     });
   },
@@ -82,7 +77,7 @@ export default {
             console.log(result);
             if(result.codeResult) {
                 console.log("result", result.codeResult.code);
-                document.getElementById('dd').innerHTML = result.codeResult.code;
+                // document.getElementById('dd').innerHTML = result.codeResult.code;
             } else {
                 console.log("not detected");
             }
