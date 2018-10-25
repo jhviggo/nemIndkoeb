@@ -96,4 +96,10 @@ export default {
   height: 100px;
   background-color: lightgray;
 }
+
+canvas {
+  position: absolute;
+  top:  0;
+  left: 0;
+}
 </style>
