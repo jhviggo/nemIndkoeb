@@ -2,8 +2,8 @@
     <div class="container" style="margin-top: 10px;">
         <ul class="list-group col-auto" style="padding-right: 0; padding-left: 0;">
             <button v-if="ean || product" @click="$emit('back')" class="btn align-self-start" >Back</button>
-                <li v-for="(info, store ) in storePrices" :key="store" class="list-group-item">
-                    <p style="float: left;">{{store}}</p>
+                <li v-for="(info) in storePrices" :key="info.name" class="list-group-item">
+                    <p style="float: left;">{{info.name}}</p>
                     <p v-if="info" style="float: right;">{{info.price}}</p>
                 </li>
             </ul>
@@ -60,11 +60,13 @@ export default {
         return response.data[key]
       })
 
-      this.storePrices = keys.reduce((obj, key) => {
-        obj[key] = response.data[key]
-        return obj
-      }
-        , {})
+      this.storePrices = keys.map(key => {
+        return {
+          name: key,
+          price: response.data[key].price,
+          campaign: response.data[key].campaign
+        }
+      }).sort((a, b) => a.price - b.price)
     }
   }
 }
