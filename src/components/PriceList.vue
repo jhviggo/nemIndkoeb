@@ -12,7 +12,7 @@
                     </div>
                 </li>
             </ul>
-        <img :src="productImage"/>
+        <img v-if="ean || product" :src="productImage"/>
     </div>
 </template>
 
