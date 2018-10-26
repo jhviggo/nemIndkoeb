@@ -8,7 +8,7 @@
                 <button v-on:click="toggleModal()" class="btn" >BarCode</button>
             </div>
             <div id="modal" class="mx-auto pt-4">
-                <e-a-n-scanner v-model="ean"/>
+                <e-a-n-scanner v-if="modalShown" v-model="ean"/>
             </div>
         </div>
     </div>
@@ -47,11 +47,13 @@ export default {
   data () {
     return {
       query: '',
-      ean: ''
+      ean: '',
+      modalShown: false
     }
   },
   methods: {
     toggleModal () {
+        this.modalShown = !this.modalShown;
       document.getElementById('modal').classList.toggle('d-block')
       if (this.modalStatus()) {
         this.query = ''
