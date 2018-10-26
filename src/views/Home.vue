@@ -41,8 +41,6 @@ export default {
     clearPrices() {
         this.scan(null)
       this.selectProduct(null)
-      this.productSuggestions = [];
-
     }
   }
 }
