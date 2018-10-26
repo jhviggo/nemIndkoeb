@@ -72,7 +72,7 @@ export default {
         });
 
         Quagga.onDetected(result => {
-            if (result.codeResult){
+            if (result.codeResult && document.getElementById('EAN')){
                 document.getElementById('EAN').innerText = result.codeResult.code;
                 this.$emit('input', result.codeResult.code);
             }
