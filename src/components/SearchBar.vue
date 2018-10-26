@@ -54,6 +54,7 @@ export default {
   methods: {
     toggleModal () {
       this.modalShown = !this.modalShown
+      this.ean = ''
       document.getElementById('modal').classList.toggle('d-block')
       if (this.modalStatus()) {
         this.query = ''
