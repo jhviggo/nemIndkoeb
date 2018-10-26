@@ -12,6 +12,7 @@
                     </div>
                 </li>
             </ul>
+        <img :src="productImage"/>
     </div>
 </template>
 
@@ -44,7 +45,7 @@ export default {
         this.storePrices = []
         return
       }
-      console.log('ean' + this.ean);
+      console.log('ean' + this.ean)
       const url = 'https://ideation-group5.azurewebsites.net'
       axios.get(url, { params: { ean: this.ean } })
         .then(this.processResponse)
@@ -53,8 +54,7 @@ export default {
         })
     }
   },
-  mounted() {
-    this.getImageFromEAN('5741000124314');
+  mounted () {
   },
   data () {
     return {
@@ -64,21 +64,26 @@ export default {
     }
   },
   methods: {
-    getImageFromEAN(ean) {
-        const url = 'https://api.sallinggroup.com/v1/product-images/' + ean;
-        axios.get(url, { headers: { Authorization: `Bearer 5d6b4a05-177f-4ca2-80e9-576b47759a85` } })
-            .then(this.setImage)
-            .catch(error => {
-                console.log(error)
-            })
+    getImageFromEAN (ean) {
+      const url = 'https://api.sallinggroup.com/v1/product-images/' + ean
+      axios.get(url, { headers: { Authorization: `Bearer 5d6b4a05-177f-4ca2-80e9-576b47759a85` } })
+        .then(this.setImage)
+        .catch(error => {
+          console.log(error)
+        })
     },
-    setImage(response) {
-        this.productImage = response;
+    setImage (response) {
+      this.productImage = response.data['256']
+      console.log(this.productImage)
     },
     processResponse (response) {
       const keys = Object.keys(response.data).filter(key => {
         return response.data[key]
       })
+
+      if (response.data[keys[0]].ean) {
+        this.getImageFromEAN(response.data[keys[0]].ean)
+      }
 
       this.storePrices = keys.map(key => {
         return {
@@ -89,7 +94,7 @@ export default {
         }
       }).sort((a, b) => a.price - b.price)
     },
-    redirect(info) {
+    redirect (info) {
       if (info.name === 'bilka') {
         window.location.href = `https://beta-bilkatogo.dk/s?query=${info.ean}`
       }
