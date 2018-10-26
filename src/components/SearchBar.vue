@@ -33,7 +33,7 @@ export default {
       } else if (this.modalStatus()) {
         this.toggleModal()
       }
-      const url = `https://api.sallinggroup.com/v1/product-suggestions/query/${this.query}`
+      const url = `https://api.sallinggroup.com/v1/product-suggestions/query/${this.query.toLowerCase()}`
       axios.get(url, { headers: { Authorization: `Bearer 5d6b4a05-177f-4ca2-80e9-576b47759a85` } })
         .then(response => {
           this.$emit('input', response.data.suggestions)
@@ -53,7 +53,7 @@ export default {
   },
   methods: {
     toggleModal () {
-        this.modalShown = !this.modalShown;
+      this.modalShown = !this.modalShown
       document.getElementById('modal').classList.toggle('d-block')
       if (this.modalStatus()) {
         this.query = ''
