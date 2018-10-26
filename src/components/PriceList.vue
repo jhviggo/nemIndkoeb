@@ -2,7 +2,7 @@
     <div class="container" style="margin-top: 10px;">
         <ul class="list-group col-auto" style="padding-right: 0; padding-left: 0;">
             <button v-if="ean || product" @click="$emit('back')" class="btn align-self-start" >Back</button>
-                <li v-for="(info) in storePrices" :key="info.name" class="list-group-item row">
+                <li v-for="(info) in storePrices" :key="info.name" class="list-group-item row" v-bind:class="{pointer: info.name==='bilka'}" @click="redirect(info)">
                     <p style="float: left;">{{info.name}}</p>
                     <div class="col-auto" v-if="info" style="float: right;">
                         <div class="row text-right">
@@ -84,9 +84,15 @@ export default {
         return {
           name: key,
           price: response.data[key].price,
-          campaign: response.data[key].campaign
+          campaign: response.data[key].campaign,
+          ean: response.data[key].ean
         }
       }).sort((a, b) => a.price - b.price)
+    },
+    redirect(info) {
+      if (info.name === 'bilka') {
+        window.location.href = `https://beta-bilkatogo.dk/s?query=${info.ean}`
+      }
     }
   }
 }
@@ -102,5 +108,8 @@ export default {
 li {
     max-height: 4em;
     padding-top: 20px;
+}
+.pointer {
+    cursor: pointer;
 }
 </style>
