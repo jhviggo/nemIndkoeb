@@ -4,7 +4,7 @@
             <button v-if="ean || product" @click="$emit('back')" class="btn align-self-start" >Back</button>
                 <li v-for="(info) in storePrices" :key="info.name" class="list-group-item">
                     <p style="float: left;">{{info.name}}</p>
-                    <p v-if="info" style="float: right;">{{info.price}}</p>
+                    <p v-if="info" style="float: right;"><img class="discount-image" :src="image" v-if="info.campaign">{{info.price.toFixed(2)}} kr.</p>
                 </li>
             </ul>
     </div>
@@ -12,6 +12,7 @@
 
 <script>
 import axios from 'axios'
+import image from '../assets/tilbud.jpg'
 
 export default {
   name: 'PriceList',
@@ -50,12 +51,13 @@ export default {
   },
   data () {
     return {
-      storePrices: []
+      storePrices: [],
+      image: image
     }
   },
   methods: {
     processResponse (response) {
-      console.log(JSON.stringify(response.data))
+      console.log(response.data)
       const keys = Object.keys(response.data).filter(key => {
         return response.data[key]
       })
@@ -73,5 +75,14 @@ export default {
 </script>
 
 <style scoped>
+.discount-image {
+    max-height: 2.5em;
+    max-width: 3em;
+    margin-top: -9px;
+}
 
+li {
+    max-height: 4em;
+    padding-top: 20px;
+}
 </style>
