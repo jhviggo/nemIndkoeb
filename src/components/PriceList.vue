@@ -2,9 +2,14 @@
     <div class="container" style="margin-top: 10px;">
         <ul class="list-group col-auto" style="padding-right: 0; padding-left: 0;">
             <button v-if="ean || product" @click="$emit('back')" class="btn align-self-start" >Back</button>
-                <li v-for="(info) in storePrices" :key="info.name" class="list-group-item">
+                <li v-for="(info) in storePrices" :key="info.name" class="list-group-item row">
                     <p style="float: left;">{{info.name}}</p>
-                    <p v-if="info" style="float: right;"><img class="discount-image" :src="image" v-if="info.campaign">{{info.price.toFixed(2)}} kr.</p>
+                    <div class="col-auto" v-if="info" style="float: right;">
+                        <div class="row text-right">
+                            <img class="discount-image d-block" :src="discountImage" v-if="info.campaign">
+                            <p>{{info.price.toFixed(2)}} kr.</p>
+                        </div>
+                    </div>
                 </li>
             </ul>
     </div>
@@ -12,7 +17,7 @@
 
 <script>
 import axios from 'axios'
-import image from '../assets/tilbud.jpg'
+import discountImage from '../assets/tilbud.jpg'
 
 export default {
   name: 'PriceList',
@@ -39,7 +44,7 @@ export default {
         this.storePrices = []
         return
       }
-      console.log('ean' + this.ean)
+      console.log('ean' + this.ean);
       const url = 'https://ideation-group5.azurewebsites.net'
       axios.get(url, { params: { ean: this.ean } })
         .then(this.processResponse)
@@ -47,17 +52,30 @@ export default {
           console.log(error)
         })
     }
-
+  },
+  mounted() {
+    this.getImageFromEAN('5741000124314');
   },
   data () {
     return {
       storePrices: [],
-      image: image
+      discountImage: discountImage,
+      productImage: ''
     }
   },
   methods: {
+    getImageFromEAN(ean) {
+        const url = 'https://api.sallinggroup.com/v1/product-images/' + ean;
+        axios.get(url, { headers: { Authorization: `Bearer 5d6b4a05-177f-4ca2-80e9-576b47759a85` } })
+            .then(this.setImage)
+            .catch(error => {
+                console.log(error)
+            })
+    },
+    setImage(response) {
+        this.productImage = response;
+    },
     processResponse (response) {
-      console.log(response.data)
       const keys = Object.keys(response.data).filter(key => {
         return response.data[key]
       })

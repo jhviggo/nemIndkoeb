@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="row justify-content-center" style="margin-top: 10px;">
-            <div class="col-8">
+            <div class="col-7">
                 <input v-model="query" type="search" placeholder="Search" aria-label="Search" class="form-control">
             </div>
             <div class="col-auto">
